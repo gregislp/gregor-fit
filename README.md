@@ -1,7 +1,7 @@
 # Gregor Fit
 
 Persönlicher Trainingsplaner als Web-App (PWA) für das iPhone: kein App Store, kein Abo, keine Cloud.
-Funktionell nachgebaut nach dem Vorbild „MCI – Personal Training AI“, mit eigenem Namen, Design und eigenen Inhalten.
+
 
 ## Funktionen
 
