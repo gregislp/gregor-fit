@@ -1,6 +1,6 @@
 // Service Worker: speichert die App für den Offline-Betrieb.
 // Bei jeder Änderung an App-Dateien VERSION erhöhen, damit iPhones das Update laden.
-const VERSION = 'gregorfit-v1.0.2';
+const VERSION = 'gregorfit-v1.0.3';
 
 const SHELL = [
   './',
@@ -32,7 +32,13 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  // cache: 'reload' umgeht den HTTP-Cache des Browsers, sonst landen beim Update alte Dateien im neuen Cache
+  e.waitUntil(
+    caches
+      .open(VERSION)
+      .then((c) => c.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (e) => {
