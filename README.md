@@ -1,7 +1,7 @@
-# Gregor Fit
+# FITinMYTWEENTY
 
 Persönlicher Trainingsplaner als Web-App (PWA) für das iPhone: kein App Store, kein Abo, keine Cloud.
-
+Funktionell nachgebaut nach dem Vorbild „MCI – Personal Training AI“, mit eigenem Namen, Design und eigenen Inhalten.
 
 ## Funktionen
 
@@ -41,7 +41,7 @@ Auf dem iPhone:
 
 ### Updates
 
-1. In `sw.js` die Zeile `const VERSION = 'gregorfit-v1.0.1';` hochzählen (z. B. auf `v1.0.2`). **Ohne neue Version behält das iPhone die alte App.**
+1. In `sw.js` die Zeile `const VERSION = 'gregorfit-v1.0.2';` hochzählen (z. B. auf `v1.0.3`). **Ohne neue Version behält das iPhone die alte App.**
 2. Geänderte Dateien und `sw.js` wieder ins Repository hochladen (gleiche Namen überschreiben).
 3. Die App auf dem iPhone mit Internet öffnen, schließen und erneut öffnen. Danach läuft die neue Version.
 
