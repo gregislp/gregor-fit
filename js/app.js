@@ -49,6 +49,8 @@ function render() {
   if (!s.profile) name = 'onboarding';
   else if (!name || !routes[name] || name === 'onboarding') name = s.activeSession ? 'session' : 'home';
   const route = routes[name];
+  currentRoute = name;
+  drawUpdateBanner();
 
   cleanup?.();
   cleanup = null;
@@ -68,12 +70,77 @@ window.addEventListener('hashchange', () => {
   lastPath = path;
 });
 
-// Beim Zurückkehren in die App an einem neuen Tag neu zeichnen
+// ---------- Updates ----------
+// Eine neue sw.js-Version lädt alle Dateien neu und übernimmt sofort (skipWaiting/claim).
+// Die laufende Seite zeigt aber noch den alten Code, bis neu geladen wird – daher der Hinweis.
+// Während eines laufenden Trainings bleibt er ausgeblendet.
+const QUIET_ROUTES = new Set(['session', 'cardio-run', 'mobility-run', 'onboarding']);
+let currentRoute = null;
+let updateReady = false;
+// Ob die Seite schon von einem Service Worker gesteuert wird. Der erste Wechsel nach der
+// Erstinstallation ist kein Update; jeder weitere schon.
+let hasController = !!navigator.serviceWorker?.controller;
+
+function drawUpdateBanner() {
+  let banner = document.getElementById('update-banner');
+  if (!updateReady || QUIET_ROUTES.has(currentRoute)) {
+    banner?.remove();
+    return;
+  }
+  if (banner) return;
+  banner = document.createElement('div');
+  banner.id = 'update-banner';
+  banner.className = 'update-banner';
+  banner.innerHTML = '<span>✨ Neue Version verfügbar</span><button class="btn small primary">Aktualisieren</button>';
+  banner.querySelector('button').addEventListener('click', () => location.reload());
+  document.body.appendChild(banner);
+}
+
+// Sucht nach einer neuen Version und wartet, bis sie geladen ist. Ergebnis: true = Update bereit.
+export async function checkForUpdate() {
+  const reg = await navigator.serviceWorker?.getRegistration();
+  if (!reg) return false;
+  try {
+    await reg.update();
+  } catch {
+    return updateReady; // offline
+  }
+  const next = reg.installing || reg.waiting;
+  if (next) {
+    await new Promise((resolve) => {
+      next.addEventListener('statechange', () => ['activated', 'redundant'].includes(next.state) && resolve());
+      setTimeout(resolve, 20000);
+    });
+    await new Promise((r) => setTimeout(r, 300)); // controllerchange abwarten
+  }
+  return updateReady;
+}
+
+// Installierte Version vom Service Worker erfragen
+export function appVersion() {
+  const ctrl = navigator.serviceWorker?.controller;
+  if (!ctrl) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    const ch = new MessageChannel();
+    ch.port1.onmessage = (e) => resolve(e.data?.version || null);
+    ctrl.postMessage('version', [ch.port2]);
+    setTimeout(() => resolve(null), 5000); // ein schlafender Service Worker braucht etwas zum Aufwachen
+  });
+}
+
 let lastDay = todayKey();
+let lastCheck = 0;
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible' && todayKey() !== lastDay) {
+  if (document.visibilityState !== 'visible') return;
+  // Neuer Tag → neu zeichnen
+  if (todayKey() !== lastDay) {
     lastDay = todayKey();
     render();
+  }
+  // iOS setzt Web-Apps oft nur fort statt neu zu starten → hier selbst nach Updates suchen
+  if (Date.now() - lastCheck > 60000) {
+    lastCheck = Date.now();
+    checkForUpdate();
   }
 });
 
@@ -81,6 +148,14 @@ document.addEventListener('pointerdown', unlockAudio, { once: true });
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   navigator.serviceWorker.register('./sw.js').catch((e) => console.warn('SW', e));
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hasController) {
+      hasController = true;
+      return;
+    }
+    updateReady = true;
+    drawUpdateBanner();
+  });
 }
 
 render();

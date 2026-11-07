@@ -41,9 +41,9 @@ Auf dem iPhone:
 
 ### Updates
 
-1. In `sw.js` die Zeile `const VERSION = 'gregorfit-v1.0.4';` hochzählen (z. B. auf `v1.0.5`). **Ohne neue Version behält das iPhone die alte App.**
+1. In `sw.js` die Zeile `const VERSION = 'gregorfit-v1.0.6';` hochzählen (z. B. auf `v1.0.7`). **Ohne neue Version behält das iPhone die alte App.**
 2. Geänderte Dateien und `sw.js` wieder ins Repository hochladen (gleiche Namen überschreiben).
-3. Die App auf dem iPhone mit Internet öffnen, schließen und erneut öffnen. Danach läuft die neue Version.
+3. Auf dem iPhone die App mit Internet öffnen. Sobald das Update geladen ist, erscheint oben „Neue Version verfügbar“ → **Aktualisieren** tippen. Alternativ unter *Profil → Nach Updates suchen*. Die installierte Version steht ebenfalls im Profil. Daten und ein laufendes Training bleiben erhalten.
 
 ## Lokal am PC testen
 
