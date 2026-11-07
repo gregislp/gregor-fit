@@ -241,6 +241,27 @@ tr.done .check { background: var(--accent); color: var(--accent-ink); }
 .player .clock { font-size: 72px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.03em; margin: 10px 0; }
 .countdown { position: fixed; inset: 0; background: var(--bg); z-index: 60; display: grid; place-items: center; font-size: 140px; font-weight: 900; color: var(--accent); }
 
+/* ---------- Übungsanimation ---------- */
+.anim { width: 100%; height: auto; display: block; background: var(--card2); border-radius: 16px; }
+.anim .ground { stroke: var(--line); stroke-width: 2; }
+.anim .gear rect { fill: #4a5361; }
+.anim .gear line { stroke: #4a5361; stroke-width: 3; stroke-linecap: round; }
+.anim .gear .thick { stroke-width: 6; }
+.anim .seg { stroke: #c9d0db; stroke-width: 8; stroke-linecap: round; fill: none; }
+.anim .torso { stroke-width: 12; }
+.anim .back .seg { stroke: #7d8696; }
+.anim .seg.hi { stroke: var(--accent); }
+.anim .seg.hi2 { stroke: #8fae2a; }
+.anim .back .seg.hi { stroke: #8fae2a; }
+.anim .head { fill: #c9d0db; }
+.anim .joint { fill: transparent; }
+.anim .joint.hi { fill: var(--accent); }
+.anim .joint.hi2 { fill: #8fae2a; }
+.anim .prop { fill: none; stroke: var(--accent2); stroke-width: 3.5; }
+.anim .prop.fill, .anim rect.prop { fill: var(--accent2); }
+.anim .cable { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.anim .band { stroke: var(--warn); stroke-width: 2.5; }
+
 /* ---------- Ernährung ---------- */
 .macro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .macro .m b { display: block; font-size: 15px; }

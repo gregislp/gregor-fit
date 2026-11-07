@@ -5,6 +5,7 @@ import { findExercise, MUSCLES, TIMED, isBodyweight } from '../data/exercises.js
 import { lastPerformance, applyProgression, workoutVolume, weekStreak, alternatives, equipmentFor, prescription, e1rm } from '../logic/planner.js';
 import { bodyMap, exName } from './components.js';
 import { pickExercise } from './training.js';
+import { animSvg, startAnimations } from './anim.js';
 import { go, rerender } from '../app.js';
 
 let summary = null;
@@ -212,10 +213,11 @@ function infoSheet(exId) {
   const ex = findExercise(exId, store.get().customExercises);
   if (!ex) return;
   sheet(`<h2>${esc(ex.name)}</h2>
-    <div class="row gap wrap"><span class="badge accent">${esc(MUSCLES[ex.muscle])}</span>${ex.sec.map((m) => `<span class="badge">${esc(MUSCLES[m])}</span>`).join('')}</div>
+    ${animSvg(ex.id)}
+    <div class="row gap wrap mt"><span class="badge accent">${esc(MUSCLES[ex.muscle])}</span>${ex.sec.map((m) => `<span class="badge">${esc(MUSCLES[m])}</span>`).join('')}</div>
     ${ex.steps?.length ? `<ol class="howto mt">${ex.steps.map((x) => `<li>${esc(x)}</li>`).join('')}</ol>` : '<p class="muted mt">Keine Beschreibung.</p>'}
     <div class="card tight mt"><p class="muted" style="font-size:14px"><b>RIR</b> = Wiederholungen in Reserve: Wie viele Wiederholungen hättest du noch geschafft? 0 = Muskelversagen. Ideal sind meist 1–3.</p></div>
-    <button class="btn block mt" data-close>Schließen</button>`);
+    <button class="btn block mt" data-close>Schließen</button>`, (el) => startAnimations(el, store.get().customExercises));
 }
 
 function exMenu(i) {

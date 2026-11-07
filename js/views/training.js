@@ -4,6 +4,7 @@ import { esc, sheet, confirmDialog, toast, uid, WEEKDAYS, WEEKDAYS_LONG, fmtDate
 import { EXERCISES, MUSCLES, EQUIPMENT, findExercise, TIMED, isBodyweight } from '../data/exercises.js';
 import { SPLITS, generatePlan, buildSession, planWeek, isDeloadWeek, alternatives, equipmentFor, prescription, e1rm, workoutVolume } from '../logic/planner.js';
 import { exThumb, exMeta, exName, topbar } from './components.js';
+import { animSvg, startAnimations } from './anim.js';
 import { go, rerender } from '../app.js';
 
 export function modeTabs(active) {
@@ -278,7 +279,7 @@ export function exerciseDetail(el, [id]) {
   const bw = isBodyweight(ex);
   el.innerHTML = `
     ${topbar(ex.name, { back: 'javascript:history.back()', right: `<button class="icon-btn" data-bm aria-label="Merken">${bm ? '★' : '☆'}</button>` })}
-    <div class="figure">${exThumb(ex).replace('class="thumb"', 'style="font-size:72px"')}</div>
+    ${animSvg(ex.id)}
     <div class="row gap wrap mt"><span class="badge accent">${esc(MUSCLES[ex.muscle])}</span>${ex.sec.map((m) => `<span class="badge">${esc(MUSCLES[m])}</span>`).join('')}<span class="badge">${ex.kind === 'comp' ? 'Grundübung' : 'Isolation'}</span></div>
     <p class="muted mt">${esc(ex.equip.map((e) => EQUIPMENT[e]).join(', '))}</p>
     ${ex.steps?.length ? `<div class="section-title"><h2>Ausführung</h2></div><div class="card"><ol class="howto">${ex.steps.map((x) => `<li>${esc(x)}</li>`).join('')}</ol></div>` : ''}
@@ -290,6 +291,7 @@ export function exerciseDetail(el, [id]) {
     <div class="card mt">${lineChart(hist.map((h) => ({ label: fmtDate(h.date).split(', ')[1], value: h.value })), { unit: bw ? '' : ' kg' })}</div>
     ${ex.custom ? '<button class="btn ghost block mt" data-del>Eigene Übung löschen</button>' : ''}
   `;
+  startAnimations(el, s.customExercises);
   el.querySelector('[data-bm]').addEventListener('click', () => {
     store.update((st2) => {
       st2.bookmarks = bm ? st2.bookmarks.filter((x) => x !== id) : [...st2.bookmarks, id];
