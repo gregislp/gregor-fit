@@ -1,6 +1,6 @@
 // Service Worker: speichert die App für den Offline-Betrieb.
 // Bei jeder Änderung an App-Dateien VERSION erhöhen, damit iPhones das Update laden.
-const VERSION = 'gregorfit-v1.0.3';
+const VERSION = 'gregorfit-v1.0.4';
 
 const SHELL = [
   './',
@@ -20,6 +20,7 @@ const SHELL = [
   './js/logic/planner.js',
   './js/logic/nutrition.js',
   './js/views/components.js',
+  './js/views/anim.js',
   './js/views/onboarding.js',
   './js/views/home.js',
   './js/views/training.js',

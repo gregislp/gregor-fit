@@ -11,7 +11,7 @@ Funktionell nachgebaut nach dem Vorbild „MCI – Personal Training AI“, mit 
 | **Plan-Generator** (regelbasiert) | Ganzkörper / Ober-Unter / Push-Pull-Beine, Übungsauswahl nach Ausrüstung, Schmerzen und Fokus, Sätze/Wdh./Pausen nach Ziel und Level, Anpassung an die verfügbare Zeit, Deload-Wochen (Periodisierung) |
 | **Training** | Satz-Tracking (kg, Wdh., RIR), „Vorher“-Werte, Pausentimer mit Ton, Supersätze, Übung tauschen/hinzufügen/entfernen, Tagesform-Abfrage (Energie/Muskelkater → weniger Volumen), automatische Progression, Bestleistungen, Zusammenfassung mit Muskelkarte, Teilen |
 | **Status** | Aktiv / Krank / Urlaub (mit Ort: Hotel-Gym, ohne Geräte …), Übungen werden automatisch ersetzt, Streak bleibt geschützt |
-| **Übungen** | 84 Übungen mit Ausführung, Filter nach Muskel und Gerät, eigene Übungen, Merkliste, Fortschrittsdiagramm (1RM) |
+| **Übungen** | 84 Übungen mit animierter Figur (Bewegung in Schleife, Zielmuskeln hervorgehoben) und Ausführung, Filter nach Muskel und Gerät, eigene Übungen, Merkliste, Fortschrittsdiagramm (1RM) |
 | **Cardio** | 53 Aktivitäten, Live-Timer mit Countdown oder Nachtragen, RPE-Intensität, Kalorien über MET-Werte |
 | **Mobility** | 24 Übungen, 7 geführte Routinen mit Timer und Seitenwechsel, Empfehlung nach Arbeit/Schmerzen, 4 Beweglichkeits-Selbsttests mit Verlauf |
 | **Ernährung** | Kalorien- und Makroziele (Mifflin-St Jeor / Katch-McArdle), lokale Datenbank (118 Lebensmittel), Texteingabe („2 Eier, 1 Banane …“, auch per iPhone-Diktat), eigene Lebensmittel (Werte von der Verpackung), Favoriten, Rezepte, Wasser – komplett offline, ohne fremde Server |
@@ -41,7 +41,7 @@ Auf dem iPhone:
 
 ### Updates
 
-1. In `sw.js` die Zeile `const VERSION = 'gregorfit-v1.0.3';` hochzählen (z. B. auf `v1.0.4`). **Ohne neue Version behält das iPhone die alte App.**
+1. In `sw.js` die Zeile `const VERSION = 'gregorfit-v1.0.4';` hochzählen (z. B. auf `v1.0.5`). **Ohne neue Version behält das iPhone die alte App.**
 2. Geänderte Dateien und `sw.js` wieder ins Repository hochladen (gleiche Namen überschreiben).
 3. Die App auf dem iPhone mit Internet öffnen, schließen und erneut öffnen. Danach läuft die neue Version.
 
