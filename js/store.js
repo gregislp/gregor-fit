@@ -74,7 +74,7 @@ export function exportJSON() {
 export function importJSON(text) {
   const data = JSON.parse(text);
   if (!data || typeof data !== 'object' || !('version' in data)) {
-    throw new Error('Keine gültige Gregor-Fit-Sicherung');
+    throw new Error('Keine gültige FITinMYTWEENTY-Sicherung');
   }
   state = { ...emptyState(), ...data };
   save();

@@ -8,7 +8,7 @@ $types = @{
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://localhost:$Port/")
 $listener.Start()
-Write-Output "Gregor Fit laeuft auf http://localhost:$Port  (Strg+C zum Beenden)"
+Write-Output "FITinMYTWEENTY laeuft auf http://localhost:$Port  (Strg+C zum Beenden)"
 try {
   while ($listener.IsListening) {
     $ctx = $listener.GetContext()

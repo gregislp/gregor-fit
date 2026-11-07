@@ -21,7 +21,7 @@ export default function profile(el, [param]) {
   el.innerHTML = `
     ${topbar('Profil')}
     <div class="card hero row gap">
-      <div class="logo" style="width:60px;height:60px;font-size:26px;border-radius:18px">GF</div>
+      <div class="logo" style="width:60px;height:60px;font-size:20px;border-radius:18px">F20</div>
       <div><h2>${esc(GOAL_NAMES[p.goal])}</h2><p class="muted">${esc(LEVEL_NAMES[p.level])} · ${age(p.birthday)} Jahre · ${p.height} cm</p></div>
     </div>
 
@@ -48,7 +48,7 @@ export default function profile(el, [param]) {
 
     <div class="section-title"><h2>Über</h2></div>
     <div class="card">
-      <p><b>Gregor Fit</b> <span class="muted">Version ${APP_VERSION}</span></p>
+      <p><b>FITinMYTWEENTY</b> <span class="muted">Version ${APP_VERSION}</span></p>
       <p class="muted mt" style="font-size:14px">Alle Daten werden ausschließlich lokal auf diesem Gerät gespeichert. Die App sendet nichts an fremde Server und funktioniert vollständig offline.</p>
       <p class="muted mt" style="font-size:14px">Die App ersetzt keine ärztliche oder physiotherapeutische Beratung. Bei Schmerzen oder Vorerkrankungen bitte vor dem Training abklären lassen.</p>
       <p class="muted mt" style="font-size:14px">📱 Tipp: Exportiere regelmäßig eine Sicherung, z. B. in iCloud Drive.</p>
@@ -93,11 +93,11 @@ export default function profile(el, [param]) {
 
 async function exportData() {
   const json = store.exportJSON();
-  const name = `gregor-fit-sicherung-${todayKey()}.json`;
+  const name = `fitinmytweenty-sicherung-${todayKey()}.json`;
   const file = new File([json], name, { type: 'application/json' });
   try {
     if (navigator.canShare?.({ files: [file] })) {
-      await navigator.share({ files: [file], title: 'Gregor Fit Sicherung' });
+      await navigator.share({ files: [file], title: 'FITinMYTWEENTY Sicherung' });
       return;
     }
   } catch (e) {

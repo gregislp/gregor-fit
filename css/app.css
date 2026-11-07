@@ -189,7 +189,7 @@ input[type=range] { width: 100%; accent-color: var(--accent); height: 30px; }
 .daypick button { border: 0; border-radius: 12px; padding: 14px 0; background: var(--card); font-weight: 700; cursor: pointer; color: var(--muted); }
 .daypick button.on { background: var(--accent); color: var(--accent-ink); }
 .splash { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 70vh; gap: 18px; }
-.logo { width: 96px; height: 96px; border-radius: 28px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 40px; font-weight: 900; letter-spacing: -0.05em; }
+.logo { width: 96px; height: 96px; border-radius: 28px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 34px; font-weight: 900; letter-spacing: -0.05em; }
 .calc-anim { width: 120px; height: 120px; border-radius: 50%; border: 6px solid var(--card2); border-top-color: var(--accent); animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 

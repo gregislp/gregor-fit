@@ -64,8 +64,8 @@ const STEPS = [
   {
     id: 'welcome',
     render: () => `<div class="splash">
-      <div class="logo">GF</div>
-      <h1>Gregor Fit</h1>
+      <div class="logo">F20</div>
+      <h1>FITinMYTWEENTY</h1>
       <p class="muted" style="max-width:300px">Dein persönlicher Trainingsplan für Kraft, Cardio, Ernährung und Mobility – passend zu deinem Körper und Alltag.</p>
       <p class="dim" style="font-size:13px">Alle Daten bleiben nur auf diesem Gerät.</p>
     </div>`,

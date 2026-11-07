@@ -22,13 +22,13 @@ foreach ($size in 180, 192, 512) {
   $path.CloseFigure()
   $lime = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 198, 244, 50))
   $g.FillPath($lime, $path)
-  $font = New-Object System.Drawing.Font 'Segoe UI', ([single]($size * 0.3)), ([System.Drawing.FontStyle]::Bold), ([System.Drawing.GraphicsUnit]::Pixel)
+  $font = New-Object System.Drawing.Font 'Segoe UI', ([single]($size * 0.25)), ([System.Drawing.FontStyle]::Bold), ([System.Drawing.GraphicsUnit]::Pixel)
   $ink = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 18, 22, 10))
   $fmt = New-Object System.Drawing.StringFormat
   $fmt.Alignment = 'Center'
   $fmt.LineAlignment = 'Center'
   $rf = New-Object System.Drawing.RectangleF 0, ([single]($size * 0.02)), $size, $size
-  $g.DrawString('GF', $font, $ink, $rf, $fmt)
+  $g.DrawString('F20', $font, $ink, $rf, $fmt)
   $file = Join-Path $out "icon-$size.png"
   $bmp.Save($file, [System.Drawing.Imaging.ImageFormat]::Png)
   $g.Dispose(); $bmp.Dispose()
