@@ -5,9 +5,7 @@ import { MUSCLES, PAIN_AREAS, EQUIPMENT } from '../data/exercises.js';
 import { SPLITS, generatePlan, recommendedSplit } from '../logic/planner.js';
 import { calcTargets, ACTIVITY } from '../logic/nutrition.js';
 import { topbar, toggle } from './components.js';
-import { rerender, go } from '../app.js';
-
-export const APP_VERSION = '1.0.0';
+import { rerender, go, checkForUpdate, appVersion } from '../app.js';
 
 const GOAL_NAMES = { abnehmen: 'Abnehmen', muskel: 'Muskelaufbau', kraft: 'Kraft', fitness: 'Fitness', gesund: 'Gesund & beweglich' };
 const LEVEL_NAMES = { anfaenger: 'Einsteiger', wiedereinstieg: 'Wiedereinsteiger', fortgeschritten: 'Fortgeschritten', profi: 'Sehr erfahren' };
@@ -48,13 +46,27 @@ export default function profile(el, [param]) {
 
     <div class="section-title"><h2>Über</h2></div>
     <div class="card">
-      <p><b>FITinMYTWEENTY</b> <span class="muted">Version ${APP_VERSION}</span></p>
+      <p><b>FITinMYTWEENTY</b> <span class="muted" data-ver>Version …</span></p>
+      <button class="btn small ghost mt" data-update>🔄 Nach Updates suchen</button>
       <p class="muted mt" style="font-size:14px">Alle Daten werden ausschließlich lokal auf diesem Gerät gespeichert. Die App sendet nichts an fremde Server und funktioniert vollständig offline.</p>
       <p class="muted mt" style="font-size:14px">Die App ersetzt keine ärztliche oder physiotherapeutische Beratung. Bei Schmerzen oder Vorerkrankungen bitte vor dem Training abklären lassen.</p>
       <p class="muted mt" style="font-size:14px">📱 Tipp: Exportiere regelmäßig eine Sicherung, z. B. in iCloud Drive.</p>
     </div>
   `;
 
+  appVersion().then((v) => {
+    const out = el.querySelector('[data-ver]');
+    if (out) out.textContent = v ? `Version ${v.replace(/^.*-v/, '')}` : 'Version unbekannt';
+  });
+  el.querySelector('[data-update]').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    btn.textContent = 'Suche …';
+    const ready = await checkForUpdate();
+    btn.disabled = false;
+    btn.textContent = '🔄 Nach Updates suchen';
+    if (!ready) toast(navigator.onLine ? 'Du hast die neueste Version' : 'Keine Internetverbindung');
+  });
   el.querySelector('[data-body]').addEventListener('click', bodySheet);
   el.querySelector('[data-train]').addEventListener('click', trainingSheet);
   el.querySelector('[data-targets]').addEventListener('click', targetsSheet);
