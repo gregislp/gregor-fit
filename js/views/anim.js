@@ -202,9 +202,11 @@ export function mountAnimation(svg, ex, opts = {}) {
   const fixA = place(ptsA);
 
   // Bildausschnitt an die Bewegung anpassen (liegende Übungen brauchen weniger Höhe)
-  const tops = [0, 0.5, 1].map((k) => bounds(place(solve(lerpPose(A, B, k)))).minY);
-  const top = Math.max(0, Math.min(G - 100, Math.min(...tops, pat.cable || pat.band ? 6 : G) - 14));
-  svg.setAttribute('viewBox', `0 ${top.toFixed(0)} ${W} ${(G + 10 - top).toFixed(0)}`);
+  const frames = [0, 0.5, 1].map((k) => bounds(place(solve(lerpPose(A, B, k)))));
+  const top = Math.max(0, Math.min(G - 100, Math.min(...frames.map((f) => f.minY), pat.cable || pat.band ? 6 : G) - 14));
+  // Hängende Figuren können unter die Bodenlinie reichen
+  const bottom = Math.max(G + 10, ...frames.map((f) => f.maxY + 10));
+  svg.setAttribute('viewBox', `0 ${top.toFixed(0)} ${W} ${(bottom - top).toFixed(0)}`);
   svg.innerHTML = '';
   const hi = new Set((SEG[ex?.muscle] || []));
   const hi2 = new Set((ex?.sec || []).flatMap((m) => SEG[m] || []).filter((s) => !hi.has(s)));
